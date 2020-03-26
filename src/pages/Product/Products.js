@@ -36,10 +36,16 @@ class ProductsPage extends Component {
       .find()
       .asArray()
       .then((products) => {
-        this.setState({ products: products });
+        const transformProducts = products.map((product) => {
+          product._id = product._id.toString();
+          product.price = product.price.toString();
+          return product;
+        });
+        this.setState({ isLoading: false, products: products });
       })
       .catch((err) => {
         console.log("err :", err);
+        this.setState({ isLoading: false });
         this.props.onError("Fetching the products failed.");
       });
   };
