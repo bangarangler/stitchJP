@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { Stitch } from "mongodb-stitch-browser-sdk";
+import { Stitch, AnonymousCredential } from "mongodb-stitch-browser-sdk";
 
 import Header from "./components/Header/Header";
 import Modal from "./components/Modal/Modal";
@@ -20,7 +20,8 @@ class App extends Component {
 
   constructor() {
     super();
-    Stitch.initializeDefaultAppClient("stitchjp-sxevd");
+    const client = Stitch.initializeDefaultAppClient("stitchjp-sxevd");
+    client.auth.loginWithCredential(new AnonymousCredential());
   }
 
   logoutHandler = () => {
